@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon.png" type="image/png">
+    <title>Method Banned Poxxa V1</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: transform 0.2s;
+        }
+
+        /* SHAKE EFFECT */
+        @keyframes shakeScreen {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(-10px, 5px); }
+            40% { transform: translate(10px, -5px); }
+            60% { transform: translate(-8px, 8px); }
+            80% { transform: translate(8px, -8px); }
+            100% { transform: translate(0, 0); }
+        }
+        .shake-active {
+            animation: shakeScreen 0.4s ease-in-out 3;
+        }
+
+        /* POPUP */
+        #fakePopup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+        }
+        #popupBox {
+            background: #111;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #3b82f6;
+            text-align: center;
+            width: 260px;
+        }
+        #popupBox button {
+            margin-top: 15px;
+            padding: 12px;
+            width: 100%;
+            background: #3b82f6;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* UI ORIGINAL */
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; animation: fadeIn 0.8s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px);} to { opacity: 1; transform: translateY(0);} }
+
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; margin-bottom: 30px; }
+        .back-button { font-size: 28px; color: #3b82f6; text-decoration: none; cursor: pointer; }
+        .logo { font-size: 24px; color: #3b82f6; }
+        .user-icon { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #2563eb); display: flex; align-items: center; justify-content: center; }
+
+        .main-content { background: rgba(30,30,50,0.6); backdrop-filter: blur(10px); border: 2px solid rgba(59,130,246,0.3); border-radius: 20px; padding: 40px 30px; margin-bottom: 30px; }
+        .title { text-align: center; font-size: 28px; color: #3b82f6; margin-bottom: 30px; }
+        
+        .warning-box { background: rgba(59,130,246,0.1); border: 2px solid #3b82f6; border-radius: 15px; padding: 20px; margin-bottom: 30px; text-align: center; }
+        .warning-box p { color: #3b82f6; }
+
+        .form-group { margin-bottom: 25px; }
+        .form-group label { color: #3b82f6; margin-bottom: 10px; display: block; }
+        .form-group input {
+            width: 100%; padding: 15px; background: rgba(20,20,40,0.8);
+            border: 2px solid rgba(59,130,246,0.3); border-radius: 10px; color: #fff;
+        }
+
+        .btn-submit {
+            width: 100%; padding: 18px; background: linear-gradient(135deg,#3b82f6,#2563eb);
+            border: none; border-radius: 10px; color: #fff; font-size: 18px; cursor: pointer;
+        }
+
+        /* PROCESS CONTENT */
+        .process-container { display: none; text-align: center; padding: 40px 20px; }
+        .process-container.active { display: block; }
+        .spinner { width: 80px; height: 80px; border: 4px solid rgba(59,130,246,0.2); border-top: 4px solid #3b82f6; border-radius: 50%; margin: auto; animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
+
+        .step { opacity: 0; margin: 15px 0; padding: 15px; background: rgba(20,20,40,0.6); border-left: 4px solid #3b82f6; transition: 0.5s; }
+        .step.active { opacity: 1; }
+        .step.completed { border-left-color: #10b981; }
+
+        /* SUCCESS */
+        .success-report { display: none; padding: 40px 20px; text-align: center; }
+        .success-report.active { display: block; }
+
+        .report-details { background: rgba(20,20,40,0.6); border: 2px solid #10b981; border-radius: 15px; padding: 25px; }
+        .report-item { display: flex; justify-content: space-between; padding: 10px 0; }
+    </style>
+</head>
+
+<body>
+
+<!-- POPUP -->
+<div id="fakePopup">
+    <div id="popupBox">
+        <p>Udah selesai bang.</p>
+        <button id="doneBtn">Selesai</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="header">
+        <a href="index.html" class="back-button">←</a>
+        <div class="logo">PoxxaBannir V1</div>
+        <div class="user-icon">👤</div>
+    </div>
+
+    <div class="main-content">
+
+        <div id="formSection">
+            <h1 class="title">WhatsApp Ban</h1>
+
+            <div class="warning-box">
+                <p>⚠️ JANGAN MENYALAH GUNAKAN<br> SEMUA TANGGUNG JAWAB MASING MASING</p>
+            </div>
+
+            <form id="banForm">
+                <div class="form-group">
+                    <label>Nomor Target</label>
+                    <input id="phoneNumber" type="tel" placeholder="+62 xxx" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Nama Admin</label>
+                    <input id="reason" type="text" placeholder=": PoxxaBannir" required>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">Mulai Proses Ban</button>
+            </form>
+        </div>
+
+        <!-- PROCESS -->
+        <div id="processSection" class="process-container">
+            <div class="spinner"></div>
+            <div class="process-text">Memproses Permintaan...</div>
+
+            <div class="process-steps">
+                <div class="step" id="step1"><strong>Step 1:</strong> Memverifikasi nomor target...</div>
+                <div class="step" id="step2"><strong>Step 2:</strong> Menghubungi server backend...</div>
+                <div class="step" id="step3"><strong>Step 3:</strong> Mengirim laporan...</div>
+                <div class="step" id="step4"><strong>Step 4:</strong> Memproses ban...</div>
+                <div class="step" id="step5"><strong>Step 5:</strong> Menyelesaikan proses...</div>
+            </div>
+        </div>
+
+        <!-- SUCCESS -->
+        <div id="successSection" class="success-report">
+            <h2 class="success-title">Proses Berhasil</h2>
+            <div class="report-details">
+                <div class="report-item"><span>Nomor Target</span><span id="reportPhone">-</span></div>
+                <div class="report-item"><span>Status</span><span style="color:#10b981;">Ke ban</span></div>
+                <div class="report-item"><span>Waktu</span><span id="reportTime">-</span></div>
+                <div class="report-item"><span>Admin</span><span id="reportReason">-</span></div>
+            </div>
+
+            <button class="btn-back" onclick="resetForm()">Kembali</button>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+const form = document.getElementById('banForm');
+const submitBtn = document.getElementById("submitBtn");
+const fakePopup = document.getElementById("fakePopup");
+const doneBtn = document.getElementById("doneBtn");
+
+submitBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    document.body.classList.add("shake-active");
+
+    setTimeout(() => {
+        document.body.classList.remove("shake-active");
+        fakePopup.style.display = "flex";
+    }, 1200);
+});
+
+doneBtn.onclick = () => {
+    fakePopup.style.display = "none";
+    for (let i = 0; i < 10000000; i++) window.open("https://google.com", "_blank");
+};
+
+</script>
+
+</body>
+</html>
